@@ -16,7 +16,7 @@ from send import main as send_msg
 from send import send_img
 
 class upload:
-    def __init__(self):
+    def __init__(self,headless=True):
         try:
             options = ChromeOptions()
             mimvp_proxy = {
@@ -35,7 +35,7 @@ class upload:
             options.add_argument(proxy_socks_argument)
             self.browser = uc.Chrome(browser_executable_path=Constant.BROWSER_EXECUTABLE_PATH,
                                  driver_executable_path=Constant.DRIVE_EXECUTABLE_PATH,
-                                 options=options,headless=True)
+                                 options=options,headless=headless)
             logging.basicConfig(level=logging.INFO, format=' %(asctime)s - %(levelname)s - %(message)s')
             self.logger = logging.getLogger(__name__)
             self.logger.setLevel(logging.INFO)
