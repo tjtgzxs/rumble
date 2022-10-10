@@ -12,31 +12,49 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import Constant
 import helper
-
+from send import main as send_msg
+from send import send_img
 
 class upload:
     def __init__(self):
-        options = ChromeOptions()
-        mimvp_proxy = {
+        try:
+            options = ChromeOptions()
+            mimvp_proxy = {
 
-            'ip': '127.0.0.1',  # ip
+                'ip': '127.0.0.1',  # ip
 
-            'port_http': 1080,  # http, https
+                'port_http': 1080,  # http, https
 
-            'port_socks': 1080,  # socks5
-        }
-        proxy_https_argument = '--proxy-server=http://{ip}:{port}'.format(ip=mimvp_proxy['ip'], port=mimvp_proxy[
-            'port_http'])  # http, https (无密码，或白名单ip授权，成功)
-        options.add_argument(proxy_https_argument)
-        proxy_socks_argument = '--proxy-server=socks5://{ip}:{port}'.format(ip=mimvp_proxy['ip'], port=mimvp_proxy[
-            'port_socks'])  # socks5 (无密码，或白名单ip授权，失败)
-        options.add_argument(proxy_socks_argument)
-        self.browser = uc.Chrome(browser_executable_path=Constant.BROWSER_EXECUTABLE_PATH,
+                'port_socks': 1080,  # socks5
+            }
+            proxy_https_argument = '--proxy-server=http://{ip}:{port}'.format(ip=mimvp_proxy['ip'], port=mimvp_proxy[
+                'port_http'])  # http, https (无密码，或白名单ip授权，成功)
+            options.add_argument(proxy_https_argument)
+            proxy_socks_argument = '--proxy-server=socks5://{ip}:{port}'.format(ip=mimvp_proxy['ip'], port=mimvp_proxy[
+                'port_socks'])  # socks5 (无密码，或白名单ip授权，失败)
+            options.add_argument(proxy_socks_argument)
+            self.browser = uc.Chrome(browser_executable_path=Constant.BROWSER_EXECUTABLE_PATH,
                                  driver_executable_path=Constant.DRIVE_EXECUTABLE_PATH,
                                  options=options,headless=True)
-        logging.basicConfig(level=logging.INFO, format=' %(asctime)s - %(levelname)s - %(message)s')
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.INFO)
+            logging.basicConfig(level=logging.INFO, format=' %(asctime)s - %(levelname)s - %(message)s')
+            self.logger = logging.getLogger(__name__)
+            self.logger.setLevel(logging.INFO)
+        except Exception as e:
+            self.browser.save_screenshot(Constant.BASE_DIR + "/screenshot.png")
+            send_img(Constant.BASE_DIR + "/screenshot.png",)
+            send_msg("获取浏览器错误："+str(e))
+            return -1
+    def process(self,username,password,video_path):
+        try:
+            self.login(username,password)
+            url=self.upload(video_path)
+            return url
+        except Exception as e:
+            self.browser.save_screenshot(Constant.BASE_DIR + "/screenshot.png")
+            send_img(Constant.BASE_DIR + "/screenshot.png",)
+            send_msg("上传视频的错误："+str(e))
+            return -1
+
 
     def login(self, username, password):
         self.browser.get(Constant.BASE_URL)
