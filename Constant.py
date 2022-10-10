@@ -1,7 +1,11 @@
 # browser_executable_path=""
 import os
+import configparser
 BASE_DIR=os.path.dirname(os.path.abspath(__file__)) + os.path.sep
-BASE_CHROME_PATH=r"C:\Users\Johnson\Desktop\chrome-win\chrome-win"
+config = configparser.ConfigParser()
+config.read(BASE_DIR + "conf.ini")
+
+BASE_CHROME_PATH=config.get("WEBDRIVER","chrome_path")
 BROWSER_EXECUTABLE_PATH=BASE_CHROME_PATH+"\chrome.exe"
 DRIVE_EXECUTABLE_PATH=BASE_CHROME_PATH+"\chromedriver.exe"
 BASE_URL="https://rumble.com/"

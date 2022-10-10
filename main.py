@@ -6,7 +6,7 @@ if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.read(Constant.BASE_DIR+"conf.ini")
     video_dir=config.get("DEFAULT","video_path")
-    upload=upload(config.getboolean("WEBDRIVE","headless"))
+    upload=upload()
     result=upload.process(config.get("DEFAULT","user_name"),config.get("DEFAULT",'password'),Constant.BASE_DIR+"1.mp4")
     print(result)
     upload.close()
