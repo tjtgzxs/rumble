@@ -9,7 +9,7 @@ BASE_CHROME_PATH=config.get("WEBDRIVER","chrome_path")
 BROWSER_EXECUTABLE_PATH=BASE_CHROME_PATH+"\chrome.exe"
 DRIVE_EXECUTABLE_PATH=BASE_CHROME_PATH+"\chromedriver.exe"
 BASE_URL="https://rumble.com/"
-USER_WAITING_TIME=3
+USER_WAITING_TIME=8
 COOKIE_FILE = BASE_DIR+"cookies.json"
 LOGIN_BUTTON="/html/body/header/div/button[@class='header-user']"
 USERNAME_INPUT="//*[@id='login-username']"
@@ -23,6 +23,6 @@ PERCENT="//*[@class='num_percent']"
 FORM_BUTTON_1="submitForm"
 SELECT_1="/html/body/main/div/div/div/section/form[2]/div/div[2]/div[1]/div"
 RESEULT_URL="//*[@id='view']/a"
-CRIGHTS="//label[@for='crights']"
-CTERMS="//label[@for='cterms']"
+CRIGHTS="//*[@id='form2']/div/div[7]/div[1]/label"
+CTERMS="//*[@id='form2']/div/div[7]/div[2]/label"
 

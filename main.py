@@ -12,23 +12,29 @@ if __name__ == '__main__':
     file_res = os.listdir(video_dir)
     limit=config.getint('DEFAULT','limit')
     now=1
+    upload = upload()
+    upload.login(config.get("DEFAULT", "user_name"), config.get("DEFAULT", 'password'))
     for file in file_res:
+        long_file=video_dir+str(file)
         if now>limit:
             send.main("今日已完成任务了")
             break
-        type=filetype.guess(file)
+        type=filetype.guess(long_file).EXTENSION
+
         if not type in ['mp4','m4v','mkv','webm','mov','avi','wmv','mpg','flv']:
             continue
-        upload = upload()
-        result = upload.process(config.get("DEFAULT", "user_name"), config.get("DEFAULT", 'password'),
-                                Constant.BASE_DIR + "1.mp4")
+
+        result = upload.upload(long_file)
+
+        # del upload
         if result!=-1:
-            os.remove(file)
+            os.remove(long_file)
             send.main("今日已完成" + str(now) + "/" + str(limit))
             now+=1
         else:
-            break
-        upload.close()
+            continue
+    upload.close()
+
 
 
 

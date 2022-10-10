@@ -78,6 +78,7 @@ class upload:
             helper.save_cookie(self.browser, Constant.COOKIE_FILE)
 
     def upload(self, video_file):
+        self.logger.info("开始上传:"+str(video_file))
         time.sleep(Constant.USER_WAITING_TIME)
         # self.browser.find_element(By.XPATH, Constant.UPLOAD_BUTTON).click()
         self.browser.get(Constant.UPLOAD_URL)
@@ -103,10 +104,11 @@ class upload:
         self.browser.find_element(By.ID, Constant.FORM_BUTTON_1).click()
         time.sleep(Constant.USER_WAITING_TIME)
         self.browser.find_element(By.XPATH, Constant.SELECT_1).click()
+        time.sleep(Constant.USER_WAITING_TIME+2)
         self.browser.find_element(By.XPATH, Constant.CRIGHTS).click()
         self.browser.find_element(By.XPATH, Constant.CTERMS).click()
         self.browser.find_element(By.ID, "submitForm2").click()
-        time.sleep(Constant.USER_WAITING_TIME)
+        time.sleep(Constant.USER_WAITING_TIME+2)
         return self.browser.find_element(By.XPATH, Constant.RESEULT_URL).get_attribute("href")
 
     def close(self):
