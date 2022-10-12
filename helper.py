@@ -93,6 +93,6 @@ def login_again(browser, wait):
     print("2 end")
 
 def get_keyword(keyword):
-    arr = str.split(',')
+    arr = str.split(',',keyword)
     return random.choice(arr)
 
