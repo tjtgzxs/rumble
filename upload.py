@@ -15,6 +15,7 @@ import helper
 from send import main as send_msg
 from send import send_img
 import configparser
+import random
 class upload:
     def __init__(self):
         try:
@@ -86,12 +87,16 @@ class upload:
 
         self.browser.find_element(By.XPATH, Constant.VIDEO_INPUT).send_keys(
             absolute_video_path)
-        time.sleep(Constant.USER_WAITING_TIME)
+        time.sleep(Constant.USER_WAITING_TIME+random.randint(0,9))
         self.browser.find_element(By.XPATH, Constant.TITLE_INPUT).send_keys("funny & cute animals")
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         video_description = "funny & cute animals,very happy"
         video_description = video_description.replace("\n", Keys.ENTER)
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.ID, "description").send_keys(video_description)
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.ID, "tags").send_keys("cute,dogs")
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
 
         while True:
             # end = self.browser.find_element(By.XPATH, Constant.PERCENT).find("100")
@@ -102,13 +107,15 @@ class upload:
             else:
                 break
         self.browser.find_element(By.ID, Constant.FORM_BUTTON_1).click()
-        time.sleep(Constant.USER_WAITING_TIME)
+        time.sleep(Constant.USER_WAITING_TIME+random.randint(0,9))
         self.browser.find_element(By.XPATH, Constant.SELECT_1).click()
-        time.sleep(Constant.USER_WAITING_TIME+2)
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.XPATH, Constant.CRIGHTS).click()
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.XPATH, Constant.CTERMS).click()
+        time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.ID, "submitForm2").click()
-        time.sleep(Constant.USER_WAITING_TIME+2)
+        time.sleep(Constant.USER_WAITING_TIME+random.randint(0,9))
         return self.browser.find_element(By.XPATH, Constant.RESEULT_URL).get_attribute("href")
 
     def close(self):
