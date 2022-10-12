@@ -5,7 +5,10 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from time import sleep
+import Constant
 import redis
+import random
+
 
 def save_cookie(driver, path):
     with open(path, 'w') as filehandler:
@@ -89,6 +92,7 @@ def login_again(browser, wait):
     save_cookie(browser, Constant.COOKIE_FILE)
     print("2 end")
 
-def limit():
-    Constant
+def get_keyword(keyword):
+    arr = str.split(',')
+    return random.choice(arr)
 

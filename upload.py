@@ -21,6 +21,7 @@ class upload:
         try:
             config = configparser.ConfigParser()
             config.read(Constant.BASE_DIR + "conf.ini")
+            self._config=config
             options = ChromeOptions()
             mimvp_proxy = {
 
@@ -88,9 +89,12 @@ class upload:
         self.browser.find_element(By.XPATH, Constant.VIDEO_INPUT).send_keys(
             absolute_video_path)
         time.sleep(Constant.USER_WAITING_TIME+random.randint(0,9))
-        self.browser.find_element(By.XPATH, Constant.TITLE_INPUT).send_keys("funny & cute animals")
+        keyword1=helper.get_keyword(self._config.get("KEYWORDS","keyword1"))
+        keyword2= helper.get_keyword(self._config.get("KEYWORDS","keyword2"))
+        keyword3=helper.get_keyword(self._config.get("KEYWORDS","keyword3"))
+        self.browser.find_element(By.XPATH, Constant.TITLE_INPUT).send_keys(str(keyword1)+" & "+str(keyword2)+" "+str(keyword3))
         time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
-        video_description = "funny & cute animals,very happy"
+        video_description = str(keyword1)+" & "+str(keyword2)+" "+str(keyword3)+",very happy"
         video_description = video_description.replace("\n", Keys.ENTER)
         time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.ID, "description").send_keys(video_description)
