@@ -99,7 +99,8 @@ class upload:
         time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
         self.browser.find_element(By.ID, "description").send_keys(video_description)
         time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
-        self.browser.find_element(By.ID, "tags").send_keys("cute,dogs")
+        tags=self._config.get("KEYWORDS","tags")
+        self.browser.find_element(By.ID, "tags").send_keys(tags)
         time.sleep(Constant.USER_WAITING_TIME + random.randint(0, 9))
 
         while True:
